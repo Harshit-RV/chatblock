@@ -1,16 +1,17 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
 import Profile from "./components/Profile"
 import Login from "./components/Login"
-import firebase from 'firebase/app';
+import Signup from "./components/Signup"
+// import firebase from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 
-const firestore = firebase.firestore();
-
-firebase.initializeApp({
+const app = initializeApp({
   apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
   authDomain: "chatblock-877ef.firebaseapp.com",
   projectId: "chatblock-877ef",
@@ -20,6 +21,7 @@ firebase.initializeApp({
   measurementId: "G-YBZNHV9VR5"
 })
 
+const db = getFirestore(app);
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/signup" element={<Signup/>} />
       </Routes>
     </BrowserRouter>
   )
