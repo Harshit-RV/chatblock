@@ -1,3 +1,5 @@
+import { BrowserRouter,Routes,Route } from "react-router-dom"
+import Profile from "./components/Profile"
 import Login from "./components/Login"
 import firebase from 'firebase/app';
 import 'firebase/firestore'
@@ -25,7 +27,12 @@ const db = getFirestore(app);
 function App() {
 
   return (
-    <div>hi</div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/profile" element={<Profile/>} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
