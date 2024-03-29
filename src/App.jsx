@@ -1,3 +1,4 @@
+import Login from "./components/Login"
 import firebase from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
@@ -21,7 +22,7 @@ firebase.initializeApp({
 function App() {
 
   return (
-    <div>Hi</div>
+    <div>hi</div>
   )
 }
 
