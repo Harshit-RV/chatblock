@@ -2,11 +2,11 @@ import React from 'react'
 import Login from './Login'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { useState,useEffect } from 'react';
 
 
 
 function Profile() {
-
   const navigate = useNavigate();
 
   const logOut = async () => {
