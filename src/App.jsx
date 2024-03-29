@@ -4,10 +4,12 @@ import 'firebase/firestore'
 import 'firebase/auth';
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 
 const firestore = firebase.firestore();
 
-firebase.initializeApp({
+const app = firebase.initializeApp({
   apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
   authDomain: "chatblock-877ef.firebaseapp.com",
   projectId: "chatblock-877ef",
@@ -17,6 +19,7 @@ firebase.initializeApp({
   measurementId: "G-YBZNHV9VR5"
 })
 
+const db = getFirestore(app);
 
 
 function App() {
