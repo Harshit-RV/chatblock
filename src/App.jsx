@@ -7,10 +7,8 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 
-const app = initializeApp({
+initializeApp({
   apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
   authDomain: "chatblock-877ef.firebaseapp.com",
   projectId: "chatblock-877ef",
@@ -20,15 +18,13 @@ const app = initializeApp({
   measurementId: "G-YBZNHV9VR5"
 })
 
-const db = getFirestore(app);
-
-
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/signup" element={<Signup/>} />
       </Routes>

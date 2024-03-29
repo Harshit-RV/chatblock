@@ -24,9 +24,12 @@ function Login() {
   }, [somethingWentWrongMsg]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoginSuccessMsg(false);
-    }, 7000);
+    if (loginSuccessMsg === true) {
+      setTimeout(() => {
+        setLoginSuccessMsg(false);
+      }, 7000);
+      navigate('/profile')
+    }
   }, [loginSuccessMsg]);
 
 
