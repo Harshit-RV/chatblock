@@ -60,7 +60,7 @@ function Chatbot() {
   }, [paySuccessMsg]);
 
 
-  var values = [null, null, null];
+  // var values = [null, null, null];
   
   
   const [isTyping, setIsTyping] = useState(false);

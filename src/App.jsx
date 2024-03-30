@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes,Route, useLocation } from "react-router-dom"
+import { Routes,Route, useLocation } from "react-router-dom"
 import WalletsPage from "./components/WalletsPage"
 import Login from "./components/Login"
 import Signup from "./components/Signup"
