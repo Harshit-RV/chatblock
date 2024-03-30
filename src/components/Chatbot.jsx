@@ -96,7 +96,7 @@ function Chatbot() {
 
   return (
     <div className="App">
-    <div style={{ position: "relative", height: "800px", width: "700px" }}>
+    <div style={{ position: "relative", height: "100vh" }}>
       <MainContainer>
         <ChatContainer>
           <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
