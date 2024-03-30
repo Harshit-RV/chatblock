@@ -1,5 +1,6 @@
 import LeftProfile from "./LeftProfile"
 import Transanctions from "./Transanctions"
+import Chatbot from "./Chatbot"
 
 const Platform = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Platform = () => {
             <LeftProfile />
         </div>
         <div className="md:col-span-4 bg-red-500">
-            Chat Section
+            <Chatbot/>
         </div>
         <div className="md:col-span-1 bg-gray-50">
             <Transanctions/>
