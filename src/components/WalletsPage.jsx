@@ -34,6 +34,19 @@ function WalletsPage() {
       }, 10000);
   }, [walletCreated]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setSomethingWentWrongMsg(false);
+    }, 5000);
+  }, [somethingWentWrongMsg]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setWalletCreated(false);
+      setCreatingNewWallet(false);
+      }, 10000);
+  }, [walletCreated]);
+
 
   function updateBalanceForKey(key, newBalance) {
     const index = walletsList.findIndex(wallet => wallet.id === key);
@@ -159,17 +172,18 @@ function WalletsPage() {
       <button onClick={invertCreatingWallet} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
         Create Wallet
       </button>:
+      
       <div>
-      <div>
-        <input onChange={(e) => setWalletName(e.target.value)} placeholder="Wallet Name" required type="text" id="wallet_name" className="mb-5 w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
-      </div>
-      {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
-          {walletCreated === true ? <div className="text-green-500 mt-2">Wallet created successfully. Reload the page to see details ..</div> : <p></p>}
+          <input onChange={(e) => setWalletName(e.target.value)} placeholder="Wallet Name" required type="text" id="wallet_name" className="mb-5 w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
+
+        {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
+        {walletCreated === true ? <div className="text-green-500 mt-2">Wallet created successfully. Reload the page to see details ..</div> : <p></p>}
         
-      <button onClick={() => createWallet(walletName)} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
-        Create Wallet
-      </button>
-      </div>}
+        <button onClick={() => createWallet(walletName)} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
+          Create Wallet
+        </button>
+      </div>
+      }
 
     </div>
   )
