@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 
 
@@ -13,6 +14,11 @@ function Profile() {
     navigate("/login");
   }
 
+  useEffect(() => {
+    if (!localStorage.getItem('jwt')) {
+      navigate('/login');
+    }
+  }, []);
 
   const getBalance = async () => {
     setBalance('...')
