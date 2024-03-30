@@ -26,6 +26,9 @@ function Chatbot() {
       sender: "ChatGPT"
     }
   ]);
+
+  var values = [null, null, null];
+  
   
   const [isTyping, setIsTyping] = useState(false);
 
@@ -37,38 +40,18 @@ function Chatbot() {
    
 
     if(doc.match('send money').found){
-       const text = "Give me the wallet ID";
-
-       
-
-
-
-       console.log(text);
+     
        const userMessage = {
         message: message, 
         sender: "user"
       };
 
-
-      
-      
       setMessages([...messages, userMessage]);
       
       
       setIsTyping(true);
-      
-      
-      //running backend api
-      setTimeout(() => {
-        const chatGPTReply = {
-          message: text,
-          sender: "ChatGPT"
-        };
-      
-        setMessages(prevMessages => [...prevMessages, chatGPTReply]);
-      
-        setIsTyping(false);
-      }, 1000);
+
+      sendMoney(messages);
 
      }
     
@@ -156,6 +139,29 @@ setTimeout(() => {
 
 
     
+  }
+
+  function sendMoney(){
+    const text = "Give me the wallet ID and account number";
+
+
+    console.log(text);
+
+    const chatGPTReply = {
+      message: text,
+      sender: "ChatGPT"
+    };
+  
+    setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+
+    setIsTyping(false);
+
+    
+
+
+
+
+
   }
 
 
