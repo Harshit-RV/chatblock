@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 
-function Profile() {
+function WalletsPage() {
   const navigate = useNavigate();
   // const [ balance, setBalance ] = useState(null);
   const [ walletsList, setWalletsList] = useState(null)
@@ -118,11 +118,8 @@ function Profile() {
       </div> */}
 
       <div className='flex flex-col gap-0'>
-        <div className='flex justify-between'>
+        <div className='flex justify-start'>
           <div className='font-semibold pl-2'>Wallets</div>
-          <button onClick={logOut} className="py-1 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            Create
-          </button>
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 py-5 gap-10'>
           {walletsList === null
@@ -134,7 +131,7 @@ function Profile() {
       </div>
 
       <button onClick={logOut} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        Logout
+        Create Wallet
       </button>
     </div>
   )
@@ -166,4 +163,4 @@ const WalletCard = (props) => {
 }
 
 
-export default Profile
+export default WalletsPage
