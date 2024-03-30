@@ -64,10 +64,10 @@ function LeftProfile() {
   return (
     <div className='flex flex-col justify-between items-center h-screen gap-8'>
       <div className='mt-6 flex flex-col gap-4 items-center'>
-        <div className='flex'>
+        <div className='flex flex-col items-center gap-1'>
         <img className='h-32 w-32 rounded-full' src={selectedImage} alt="" />
-        {/* <button onClick={handleButtonClick} > change</button> */}
-        <FaPenAlt onClick={handleButtonClick} className='hover:cursor-pointer mt-28 '/>
+        <button className='hover:underline text-sm font-semibold' onClick={handleButtonClick} > change</button>
+        {/* <FaPenAlt onClick={handleButtonClick} className='hover:cursor-pointer '/> */}
         <input
           type="file"
           accept="image/*"
