@@ -1,5 +1,7 @@
 import LeftProfile from "./LeftProfile"
 import Transanctions from "./Transanctions"
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 
 const Platform = () => {
     const navigate = useNavigate();

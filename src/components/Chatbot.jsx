@@ -11,20 +11,11 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 
 
 // "Explain things like you would to a 10 year old learning how to code."
-const systemMessage = "STRICT RULES TO FOLLOW: Explain things like you're talking to a customer as a chatbot for a blockchain app. Read the chat thoroughly and respond to the latest question. You must talk to them like you're talking to a customer."
+const systemMessage = "RULES TO FOLLOW: Explain things like you're talking to a customer as a chatbot for a blockchain app. You must talk to them like you're talking to a customer. You are the support chatbot here, so talk like one. Keep every single one of your responses to maximum of 150 words. If you need to explain something, break it into parts."
+
+// const systemMessage = "We'll role play today: I will play the role of a customer and you will play as a support chatbot for a blockchain based finance app. Don't even tell me you're starting, just start. I have attached the chat history in this message, we'll continue the game from there. In case there is no history, Just introduce yourself and let's start the game. 3, 2, 1. I'm no more me. I'm a customer now and you are a chatbot."
 
 function Chatbot() {
-
-    const getResponseFromGemini = async () => {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-
-        const prompt = "Write a story about a magic backpack."
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        console.log(text);
-    }
 
   const [messages, setMessages] = useState([
     {
@@ -41,7 +32,7 @@ function Chatbot() {
     const newMessage = {
       message,
       direction: 'outgoing',
-      sender: "ChatGPT"
+      sender: "user"
     };
 
     const newMessages = [...messages, newMessage];
@@ -70,11 +61,9 @@ function Chatbot() {
 
     console.log(apiMessages.toString)
 
-
-
     const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
-    const prompt = systemMessage + apiMessages.toString()
+    const prompt = `${systemMessage} + ${chatMessages.length == 0 ? "no chat history" : `previous chat: ${apiMessages.toString()}`}`
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
@@ -82,7 +71,8 @@ function Chatbot() {
 
     setMessages([...chatMessages, {
         message: text,
-        sender: "user"
+        sender: "user",
+        direction: 'incoming'
       }]);
       setIsTyping(false);
   }
@@ -109,15 +99,9 @@ function Chatbot() {
     <div style={{ position: "relative", height: "800px", width: "700px" }}>
       <MainContainer>
         <ChatContainer>
-          <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}>
+          <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
             {messages.map((message, i) => {
-              if (message.sender === "ChatGPT") {
-                
-                return <Message style={chatGPTMessageStyle} key={i} model={message} sender={message.sender} />;
-              } else {
-                // Render user's messages differently
-                return <Message style= {userMessageStyle} key={i} model={message} sender={message.sender} />;
-              }
+              return <Message  key={i} model={message} sender={message.sender} />;
             })}
           </MessageList>
           <MessageInput placeholder="Type message here" onSend={handleSend} />

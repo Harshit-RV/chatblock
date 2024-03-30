@@ -7,6 +7,8 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 import Platform from "./components/Platform";
+import Chatbot from "./components/Chatbot";
+import PayPage from "./components/Pay";
 
 
 
@@ -26,10 +28,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login/>} />
+        <Route path="/pay" element={<PayPage/>} />
         <Route path="/platform" element={<Platform/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/signup" element={<Signup/>} />
+        <Route path="/chatbot" element={<Chatbot/>} />
       </Routes>
     </BrowserRouter>
   )
