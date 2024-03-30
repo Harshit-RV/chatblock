@@ -78,7 +78,7 @@ function Chatbot() {
   }
 
   const chatGPTMessageStyle = {
-    backgroundColor: '#e0e0e0',
+    // backgroundColor: '#e0e0e0',
     padding: '8px',
     borderRadius: '8px',
     marginBottom: '8px',
@@ -96,8 +96,9 @@ function Chatbot() {
 
   return (
     <div className="App">
-    <div style={{ position: "relative", height: "100vh" }}>
-      <MainContainer>
+    <div className='h-[95vh] grid md:grid-cols-6 mt-5'>
+      <div className='md:col-span-1'></div>
+    <MainContainer className='md:col-span-4 rounded-xl'>
         <ChatContainer>
           <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
             {messages.map((message, i) => {
@@ -107,6 +108,7 @@ function Chatbot() {
           <MessageInput placeholder="Type message here" onSend={handleSend} />
         </ChatContainer>
       </MainContainer>
+      <div className='md:col-span-1'></div>
     </div>
   </div>
   )
