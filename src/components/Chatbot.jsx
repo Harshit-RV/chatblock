@@ -5,6 +5,7 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Typin
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import nlp from 'compromise';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -28,6 +29,7 @@ function Chatbot() {
   const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
   const [ invalidCredentialMsg, setInvalidCredentialMsg ] = useState(false);
   const [ paySuccessMsg, setPaySuccessMsg ] = useState(false);
+  const navigate = useNavigate();
 
   const [messages, setMessages] = useState([
     {
@@ -80,33 +82,95 @@ function Chatbot() {
       setIsTyping(true);
       sendMoney(messages);
 
-      setPaymentMode(true)
-    } else if (doc.match('(thank you sir|thanks sir)').found) {
-        const text = "You're welcome";
-        console.log(text);
+      setPaymentMode(true) 
+    }
+      else if(doc.match('(check balance |check my balance)').found){
 
+        const text = "I will redirect you to the page that checks your balance";
+  
         const userMessage = {
-          message: message, 
-          sender: "user"
+        message: message, 
+        sender: "user"
         };
-
-
+  
         setMessages([...messages, userMessage]);
-
-
         setIsTyping(true);
-
-
-        //running backend api
+  
+  
+  //running backend api
         setTimeout(() => {
-          const chatGPTReply = {
-            message: text,
-            sender: "ChatGPT"
+        const chatGPTReply = {
+         message: text,
+         sender: "ChatGPT"
         };
-
+    
         setMessages(prevMessages => [...prevMessages, chatGPTReply]);
-          setIsTyping(false);
-        }, 1000); 
+        setIsTyping(false);
+        }, 1000);
+  
+        setTimeout(()=>{
+        navigate('/wallets');
+        },4000);
+  
+  }
+  
+  else if(doc.match('(check wallet list |check wallet balance)').found){
+  
+    const text = "I will redirect you to the page that returns your wallet list";
+  
+    const userMessage = {
+    message: message, 
+    sender: "user"
+    };
+  
+    setMessages([...messages, userMessage]);
+    setIsTyping(true);
+  
+  
+  //running backend api
+    setTimeout(() => {
+    const chatGPTReply = {
+     message: text,
+     sender: "ChatGPT"
+    };
+  
+    setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+    setIsTyping(false);
+    }, 1000);
+  
+    setTimeout(()=>{
+    navigate('/wallets');
+    },4000);
+  
+  }
+  
+  else if(doc.match('(transactions)').found){
+  
+    const text = "I will redirect you to the page that returns your previous transactions";
+  
+    const userMessage = {
+    message: message, 
+    sender: "user"
+    };
+  
+    setMessages([...messages, userMessage]);
+    setIsTyping(true);
+  
+  
+  //running backend api
+    setTimeout(() => {
+    const chatGPTReply = {
+     message: text,
+     sender: "ChatGPT"
+    };
+  
+    setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+    setIsTyping(false);
+    }, 1000);
+  
+    setTimeout(()=>{
+    navigate('/transanctions');
+    },4000);
 
   } else {
       const newMessage = {

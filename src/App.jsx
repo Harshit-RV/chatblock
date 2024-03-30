@@ -41,7 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/pay" element={<PayPage/>} />
-        <Route path="/platform" element={<Platform/>} />
+        <Route path="/chatbot" element={<Platform/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
