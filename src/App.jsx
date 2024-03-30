@@ -48,7 +48,6 @@ function App() {
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/chatbot" element={<Chatbot/>} />
-        <Route path = "/chatbot" element = {<Chatbot/>}/>
         <Route path="/transactions" element={<Transanctions/>} />
       </Routes>
     </div>

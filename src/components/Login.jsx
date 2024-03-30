@@ -54,6 +54,8 @@ function Login() {
       })
 
       localStorage.setItem('jwt', response['data']['data']['access_token']);
+      localStorage.setItem('email', email);
+
       setLoginSuccessMsg(true)
 
     } catch (error) {

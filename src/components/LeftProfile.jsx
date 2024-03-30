@@ -1,16 +1,30 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { FiLogOut } from "react-icons/fi";
 import { useRef } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
+const app = initializeApp({
+  apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
+  authDomain: "chatblock-877ef.firebaseapp.com",
+  projectId: "chatblock-877ef",
+  storageBucket: "chatblock-877ef.appspot.com",
+  messagingSenderId: "601803587692",
+  appId: "1:601803587692:web:6e8bb6974311697e87d849",
+  measurementId: "G-YBZNHV9VR5"
+})
+
+const db = getFirestore(app);
 
 
 
 function LeftProfile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [ balance, setBalance ] = useState(null);
+  const [ username, setUsername ] = useState(null);
 
   const logOut = async () => {
     await localStorage.removeItem("jwt");
@@ -19,6 +33,27 @@ function LeftProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
+  const getUsername = async () => {
+    const email = localStorage.getItem('email');
+
+    try {
+      const data = await getDocs(collection(db, 'users'));
+      console.log(data.docs)
+      data.docs.map((doc) => {
+        console.log(doc.data().email)
+        if (doc.data().email == email) {
+          setUsername(doc.data().name)
+        }
+      })
+      // const existingCodes = data.docs.map(doc => [doc.id, doc.data().gameCode]);
+    } catch (error) {
+      console.log('error')
+    }
+  }
+
+  useEffect(() => {
+    getUsername()
+  }, []);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -74,9 +109,8 @@ function LeftProfile() {
             />
         </div>
 
-        <div className='text-2xl font-bold'>
-          Logged In User
-        </div>
+        
+        {username == null ? <div className='text-2xl font-bold'>Logged In User</div> : <div className='text-2xl font-bold'>{username}</div>}
 
         <div className='flex flex-col gap-2 w-full pb-10'>
 
