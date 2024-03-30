@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function Profile() {
   const navigate = useNavigate();
-  const [ balance, setBalance ] = useState('...');
+  const [ balance, setBalance ] = useState(null);
   const [ walletsList, setWalletsList] = useState(null)
 
   // const walletsList = [
@@ -86,11 +86,19 @@ function Profile() {
       <div className='text-2xl font-bold'>
         Logged In User
       </div>
-      <div className='flex justify-center gap-4 items-baseline'>
+
+      {/* <div className='flex justify-center gap-4 items-baseline'>
         <button onClick={getBalance} className="py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           Check Balance
         </button>
         <div className='font-semibold'>{balance} Satoshi</div>
+      </div> */}
+
+      <div className='flex justify-center gap-4 items-baseline'>
+        <div className='font-semibold text-lg'>Balance: </div>
+          <button onClick={getBalance} className="py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
+          </button>
       </div>
 
       <div className='flex flex-col gap-0'>
