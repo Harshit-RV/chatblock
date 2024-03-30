@@ -12,6 +12,12 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      navigate('/profile');
+    }
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       setIncorrectCredentialMsg(false);
     }, 5000);
