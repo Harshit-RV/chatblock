@@ -41,7 +41,7 @@ function App() {
 
       {/* button */}
       <Routes>
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<Platform/>} />
         <Route path="/pay" element={<PayPage/>} />
         <Route path="/chatbot" element={<Platform/>} />
         <Route path="/login" element={<Login/>} />
