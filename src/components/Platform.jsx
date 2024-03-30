@@ -1,7 +1,7 @@
 const Platform = () => {
     return (
         <>
-            <div>Platform</div>
+            {/* <div className="gird gird-col">Platform</div> */}
         </>
     )
 }
