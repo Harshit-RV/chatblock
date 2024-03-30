@@ -1,6 +1,7 @@
 import LeftProfile from "./LeftProfile"
 import Transanctions from "./Transanctions"
 import Chatbot from "./Chatbot"
+import { useEffect, useNavigate } from "react"
 
 const Platform = () => {
     const navigate = useNavigate();
