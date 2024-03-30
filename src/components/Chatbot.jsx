@@ -285,9 +285,9 @@ function Chatbot() {
   }
 
   return (
-    <div className='h-[90vh] w-[600px] mt-5'>
+    <div className='h-[90vh] w-[88%] mt-5'>
         <MainContainer className='md:col-span-4 rounded-xl pt-5'>
-          <div className='flex w-full flex-col-reverse'>
+          <div className='flex w-full flex-col-reverse w-relative'>
 
             <ChatContainer>
               <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>

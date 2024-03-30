@@ -4,6 +4,8 @@ import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { FiLogOut } from "react-icons/fi";
 import { useRef } from 'react';
+import { HiMenuAlt3 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
 
 
 
@@ -12,6 +14,8 @@ function LeftProfile() {
     const navigate = useNavigate();
   const [ balance, setBalance ] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+//   const [toggleMenu, setToggleMenu] = useState(false);
+  
 
   useEffect(() => {
     const storedImage = localStorage.getItem('profileImage');
@@ -65,10 +69,10 @@ function LeftProfile() {
   };
 
   return (
-    <div className='flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]'>
+    <div className='hidden md:flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]     '>
       
       <div className='mt-6 flex flex-col gap-4 items-center'>
-        <div className='flex flex-col items-center gap-1'>
+        <div className=' items-center gap-1'>
           <img className='h-32 w-32 rounded-full' src={selectedImage} alt="" />
           
           <button className='hover:underline text-sm font-semibold' onClick={handleButtonClick} > change</button>
@@ -108,6 +112,7 @@ function LeftProfile() {
         </button>
       </div> 
     </div>
+  
   )
 }
 
