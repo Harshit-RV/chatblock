@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
-
 const PayPage = () => {
 
   const [ paymail, setPaymail ] = useState();
@@ -52,7 +51,6 @@ const PayPage = () => {
           'Content-Type': 'application/json'
         }
       })
-
       setPaySuccessMsg(true)
 
       console.log(response)

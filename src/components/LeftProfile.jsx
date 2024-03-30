@@ -87,7 +87,7 @@ function LeftProfile() {
         <NavBarButton name="Platform" onClick={() => navigate('/platform')}/>
         <NavBarButton name="Wallets" onClick={() => navigate('/wallets')}/>
         <NavBarButton name="Payments" onClick={() => navigate('/pay')}/>
-        <NavBarButton name="Transactions" onClick={() => navigate('/platform')}/>
+        <NavBarButton name="Transactions" onClick={() => navigate('/transactions')}/>
 
         </div>
 

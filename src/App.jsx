@@ -10,8 +10,6 @@ import Platform from "./components/Platform";
 import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
-
-import Chatbot from "./components/Chatbot"
 import Transanctions from "./components/Transanctions";
 
 
@@ -29,6 +27,7 @@ initializeApp({
 function App() {
   const location = useLocation();
   console.log(location.pathname);
+
 
   return (
       <div className="flex">
