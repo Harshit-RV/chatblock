@@ -34,19 +34,6 @@ function WalletsPage() {
       }, 10000);
   }, [walletCreated]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSomethingWentWrongMsg(false);
-    }, 5000);
-  }, [somethingWentWrongMsg]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setWalletCreated(false);
-      setCreatingNewWallet(false);
-      }, 10000);
-  }, [walletCreated]);
-
 
   function updateBalanceForKey(key, newBalance) {
     const index = walletsList.findIndex(wallet => wallet.id === key);
@@ -124,6 +111,15 @@ function WalletsPage() {
     }
   };
 
+
+  const invertCreatingWallet = () => {
+    if (creatingNewWallet === true) {
+      setCreatingNewWallet(false);
+    } else {
+      setCreatingNewWallet(true);
+    }
+  }
+
   const createWallet = async (name) => {
     setSomethingWentWrongMsg(false)
 
@@ -144,14 +140,6 @@ function WalletsPage() {
     }
   }
 
-  const invertCreatingWallet = () => {
-    if (creatingNewWallet === true) {
-      setCreatingNewWallet(false);
-    } else {
-      setCreatingNewWallet(true);
-    }
-  }
-
   return (
     <div className='flex flex-col items-center w-screen gap-8 bg-gray-50 pt-14'>
 
@@ -169,7 +157,7 @@ function WalletsPage() {
       </div>
       
       { creatingNewWallet ?
-      <button onClick={invertCreatingWallet} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
+      <button onClick={invertCreatingWallet} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         Create Wallet
       </button>:
       
