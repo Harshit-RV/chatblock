@@ -84,7 +84,7 @@ function LeftProfile() {
           {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
         </button>
 
-        <NavBarButton name="Platform" onClick={() => navigate('/platform')}/>
+        <NavBarButton name="Chatbot" onClick={() => navigate('/chatbot')}/>
         <NavBarButton name="Wallets" onClick={() => navigate('/wallets')}/>
         <NavBarButton name="Payments" onClick={() => navigate('/pay')}/>
         <NavBarButton name="Transactions" onClick={() => navigate('/transactions')}/>

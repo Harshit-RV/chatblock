@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes,Route, useLocation } from "react-router-dom"
+import { Routes,Route, useLocation } from "react-router-dom"
 import WalletsPage from "./components/WalletsPage"
 import Login from "./components/Login"
 import Signup from "./components/Signup"
@@ -43,7 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/pay" element={<PayPage/>} />
-        <Route path="/platform" element={<Platform/>} />
+        <Route path="/chatbot" element={<Platform/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />

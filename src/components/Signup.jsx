@@ -113,7 +113,6 @@ function Signup() {
           {signupSuccessMsg === true ? <div className="text-green-500 mt-2">Signup Successful. Redirecting ...</div> : <p></p>}
         
 
-          {/* <button type="button" disabled={signupSuccessMsg} onClick={() => signupWithEmailAndPassword(email, password)} className="py-2.5 px-5 my-5 text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> */}
           <button type="button" disabled={signupSuccessMsg} onClick={() => signupWithEmailAndPassword(email, password)} className="w-60 py-2.5 px-5 mt-4 text-sm font-medium  rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-100 bg-gray-800 text-white border-gray-600  hover:bg-gray-700">
             Sign Up
           </button>
