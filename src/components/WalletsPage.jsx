@@ -8,7 +8,11 @@ function WalletsPage() {
   const navigate = useNavigate();
   // const [ balance, setBalance ] = useState(null);
   const [ walletsList, setWalletsList] = useState(null);
-  const [ creatingNewWallet, setCreatingNewWallet ] = useState(false);
+  const [ creatingNewWallet, setCreatingNewWallet ] = useState(true);
+  const [ walletName, setWalletName ] = useState();
+  const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
+  const [ walletCreated, setWalletCreated ] = useState(false);
+
 
   // const walletsList = [
   //   { key1: 'value1', key2: 'value2' },
@@ -16,10 +20,19 @@ function WalletsPage() {
   //   { key1: 'value5', key2: 'value6' }
   // ];
 
-  const logOut = async () => {
-    await localStorage.removeItem("jwt");
-    navigate("/login");
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setSomethingWentWrongMsg(false);
+    }, 5000);
+  }, [somethingWentWrongMsg]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setWalletCreated(false);
+      setCreatingNewWallet(false);
+      }, 10000);
+  }, [walletCreated]);
+
 
   function updateBalanceForKey(key, newBalance) {
     const index = walletsList.findIndex(wallet => wallet.id === key);
@@ -97,6 +110,34 @@ function WalletsPage() {
     }
   };
 
+  const createWallet = async (name) => {
+    setSomethingWentWrongMsg(false)
+
+    const jwtKey = localStorage.getItem('jwt');
+    try {
+      const response = await axios.post(`https://dev.neucron.io/v1/wallet/create?walletName=${name}`, null, {
+        headers: {
+          'accept': 'application/json',
+          'Authorization': jwtKey,
+        }
+      })
+
+      setWalletCreated(true)
+
+      console.log(response)
+    } catch (error) {
+        setSomethingWentWrongMsg(true)
+    }
+  }
+
+  const invertCreatingWallet = () => {
+    if (creatingNewWallet === true) {
+      setCreatingNewWallet(false);
+    } else {
+      setCreatingNewWallet(true);
+    }
+  }
+
   return (
     <div className='flex flex-col items-center w-screen gap-8 bg-gray-50 pt-14'>
 
@@ -110,21 +151,24 @@ function WalletsPage() {
             : walletsList.map(obj => (
                 <WalletCard key={obj.id} id={obj.id} name={obj.name} paymail={obj.paymail} balance={obj.balance} getBalance={getBalance}/>
               ))}
-          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
-          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
-          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
-          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
-          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
         </div>
       </div>
-
-      <button onClick={logOut} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+      
+      { creatingNewWallet ?
+      <button onClick={invertCreatingWallet} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        Create Wallet
+      </button>:
+      <div>
+      <div>
+        <input onChange={(e) => setWalletName(e.target.value)} placeholder="Wallet Name" required type="text" id="wallet_name" className="mb-5 w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
+      </div>
+      {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
+          {walletCreated === true ? <div className="text-green-500 mt-2">Wallet created successfully. Reload the page to see details ..</div> : <p></p>}
+        
+      <button onClick={() => createWallet(walletName)} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         Create Wallet
       </button>
-
-      <div>
-        
-      </div>
+      </div>}
 
     </div>
   )
