@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 import Platform from "./components/Platform";
+import Transanctions from "./components/Transanctions";
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/signup" element={<Signup/>} />
+        <Route path="/transactions" element={<Transanctions/>} />
       </Routes>
     </BrowserRouter>
   )
