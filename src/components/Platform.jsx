@@ -15,13 +15,8 @@ const Platform = () => {
       }, []);
 
     return (
-    <div className="grid md:grid-cols-5 gap-1">
-        <div className="md:col-span-1 bg-gray-400 ">
-            <LeftProfile />
-        </div>
-        <div className="md:col-span-4 bg-gray-200">
+    <div className="flex justify-center bg-gray-50 w-full">
             <Chatbot/>
-        </div>
         {/* <div className="md:col-span-1 bg-gray-300">
             <Transanctions/>
         </div> */}

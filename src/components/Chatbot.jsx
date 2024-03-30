@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import nlp from 'compromise';
+import axios from 'axios';
 
 
 
@@ -20,6 +21,13 @@ const systemMessage = "RULES TO FOLLOW: Explain things like you're talking to a 
 // const systemMessage = "We'll role play today: I will play the role of a customer and you will play as a support chatbot for a blockchain based finance app. Don't even tell me you're starting, just start. I have attached the chat history in this message, we'll continue the game from there. In case there is no history, Just introduce yourself and let's start the game. 3, 2, 1. I'm no more me. I'm a customer now and you are a chatbot."
 
 function Chatbot() {
+  const [ paymail, setPaymail ] = useState();
+  const [ amount, setAmount ] = useState();
+  const [ note, setNote ] = useState();
+  const [ paymentMode, setPaymentMode ] = useState(false);
+  const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
+  const [ invalidCredentialMsg, setInvalidCredentialMsg ] = useState(false);
+  const [ paySuccessMsg, setPaySuccessMsg ] = useState(false);
 
   const [messages, setMessages] = useState([
     {
@@ -28,6 +36,29 @@ function Chatbot() {
       sender: "ChatGPT"
     }
   ]);
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSomethingWentWrongMsg(false);
+    }, 5000);
+  }, [somethingWentWrongMsg]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setInvalidCredentialMsg(false);
+    }, 5000);
+  }, [invalidCredentialMsg]);
+
+  useEffect(() => {
+    if (paySuccessMsg == true) {
+      setTimeout(() => {
+          setPaySuccessMsg(false);
+          setPaymentMode(false);
+        }, 5000);
+    }
+  }, [paySuccessMsg]);
+
 
   var values = [null, null, null];
   
@@ -39,71 +70,60 @@ function Chatbot() {
     const doc = nlp(message);
     console.log(doc);
 
-   
-
     if(doc.match('send money').found){
-     
        const userMessage = {
         message: message, 
         sender: "user"
       };
 
       setMessages([...messages, userMessage]);
-      
-      
       setIsTyping(true);
-
       sendMoney(messages);
 
-     }
-    
+      setPaymentMode(true)
+    } else if (doc.match('(thank you sir|thanks sir)').found) {
+        const text = "You're welcome";
+        console.log(text);
 
-    else if(doc.match('(thank you sir|thanks sir)').found){
-
-      const text = "You're welcome";
-console.log(text);
-
-const userMessage = {
-  message: message, 
-  sender: "user"
-};
+        const userMessage = {
+          message: message, 
+          sender: "user"
+        };
 
 
-setMessages([...messages, userMessage]);
+        setMessages([...messages, userMessage]);
 
 
-setIsTyping(true);
+        setIsTyping(true);
 
 
-//running backend api
-setTimeout(() => {
-  const chatGPTReply = {
-    message: text,
-    sender: "ChatGPT"
-  };
+        //running backend api
+        setTimeout(() => {
+          const chatGPTReply = {
+            message: text,
+            sender: "ChatGPT"
+        };
 
-  setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+        setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+          setIsTyping(false);
+        }, 1000); 
 
-  setIsTyping(false);
-}, 1000); }
+  } else {
+      const newMessage = {
+        message,
+        direction: 'outgoing',
+        sender: "user"
+      };
 
+      const newMessages = [...messages, newMessage];
+      
+      setMessages(newMessages);
 
-
-    else {
-    const newMessage = {
-      message,
-      direction: 'outgoing',
-      sender: "user"
-    };
-
-    const newMessages = [...messages, newMessage];
-    
-    setMessages(newMessages);
-
-    // Initial system message to determine ChatGPT functionality
-    // How it responds, how it talks, etc.
-    setIsTyping(true);
-    await processMessageToChatGPT(newMessages);}
+      // Initial system message to determine ChatGPT functionality
+      // How it responds, how it talks, etc.
+      setIsTyping(true);
+      await processMessageToChatGPT(newMessages);
+    }
   };
 
   async function processMessageToChatGPT(chatMessages) {
@@ -136,16 +156,10 @@ setTimeout(() => {
         direction: 'incoming'
       }]);
       setIsTyping(false);
-
-
-
-    
   }
 
   function sendMoney(){
     const text = "Give me the wallet ID and account number";
-
-
     console.log(text);
 
     const chatGPTReply = {
@@ -156,20 +170,7 @@ setTimeout(() => {
     setMessages(prevMessages => [...prevMessages, chatGPTReply]);
 
     setIsTyping(false);
-
-    
-
-
-
-
-
   }
-
-
-
-  
-
-  
 
   const chatGPTMessageStyle = {
     // backgroundColor: '#e0e0e0',
@@ -185,12 +186,45 @@ setTimeout(() => {
     marginBottom: '4px',
   };
 
- 
- 
+
+  const payByPaymail = async (paymail, amount, note) => {
+    setSomethingWentWrongMsg(false)
+    setInvalidCredentialMsg(false)
+    const jwtKey = localStorage.getItem('jwt');
+    try {
+      const response = await axios.post('https://dev.neucron.io/v1/tx/spend', {
+        outputs: [
+          {
+            address: paymail,
+            amount: parseInt(amount),
+            note: note
+          }
+        ]
+      }, {
+        headers: {
+          'accept': 'application/json',
+          'Authorization': jwtKey,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      setPaySuccessMsg(true)
+
+      console.log(response)
+    } catch (error) {
+        if (error.response.status == 400) {
+            setInvalidCredentialMsg(true)
+        } else {
+            setSomethingWentWrongMsg(true)
+        }
+    }
+  }
 
   return (
-    <div className='h-[95vh] w-[600px] mt-5'>
+    <div className='h-[90vh] w-[600px] mt-5'>
         <MainContainer className='md:col-span-4 rounded-xl pt-5'>
+          <div className='flex w-full flex-col-reverse'>
+
             <ChatContainer>
               <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
                 {messages.map((message, i) => {
@@ -199,6 +233,22 @@ setTimeout(() => {
               </MessageList>
               <MessageInput placeholder="Type message here" onSend={handleSend} />
             </ChatContainer>
+          {paymentMode == true ? <div className='w-full items-center flex flex-col'>
+            <input onChange={(e) => setPaymail(e.target.value)} placeholder="luke@dev.neucron.io" required type="email" id="first_name" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
+            <input onChange={(e) => setAmount(e.target.value)} placeholder="1000" required type="text" id="first_name" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
+            <input onChange={(e) => setNote(e.target.value)} placeholder="yoda-is-op" required type="text" id="first_name" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
+
+            {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
+            {invalidCredentialMsg === true ? <div className="text-red-500 mt-2">Please recheck the input</div> : <p></p>}
+            {paySuccessMsg === true ? <div className="text-green-500 mt-2">Payment Successful. It will reflect in your account soon.</div> : <p></p>}
+        
+
+            <button type="button" onClick={() => payByPaymail(paymail, amount, note)} className=" w-60 py-2.5 px-5 mt-4 text-sm font-medium  rounded-lg border  focus:z-10 focus:ring-4 focus:ring-gray-100 bg-gray-800 text-white border-gray-600  hover:bg-gray-700">
+            Pay
+          </button>
+          </div> : <div></div>}
+          </div>
+
           </MainContainer>
       <div className='md:col-span-1'></div>
     </div>
