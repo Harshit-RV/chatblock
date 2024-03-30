@@ -61,7 +61,6 @@ function Profile() {
   }, []);
 
   const getBalance = async () => {
-    setBalance('...')
     const jwtKey = localStorage.getItem('jwt');
 
     try {

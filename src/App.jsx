@@ -9,6 +9,7 @@ import 'firebase/auth';
 import Platform from "./components/Platform";
 
 
+
 initializeApp({
   apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
   authDomain: "chatblock-877ef.firebaseapp.com",
