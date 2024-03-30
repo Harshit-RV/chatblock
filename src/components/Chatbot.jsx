@@ -81,36 +81,32 @@ function Chatbot() {
     // backgroundColor: '#e0e0e0',
     padding: '8px',
     borderRadius: '8px',
-    marginBottom: '8px',
+    marginBottom: '4px',
   };
 
   const userMessageStyle = {
-    backgroundColor: '#007bff',
     color: '#fff',
     padding: '8px',
     borderRadius: '8px',
-    marginBottom: '8px',
+    marginBottom: '4px',
   };
 
  
 
   return (
-    <div className="App">
-    <div className='h-[95vh] grid md:grid-cols-6 mt-5'>
-      <div className='md:col-span-1'></div>
-    <MainContainer className='md:col-span-4 rounded-xl'>
-        <ChatContainer>
-          <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
-            {messages.map((message, i) => {
-              return <Message  key={i} model={message} sender={message.sender} />;
-            })}
-          </MessageList>
-          <MessageInput placeholder="Type message here" onSend={handleSend} />
-        </ChatContainer>
-      </MainContainer>
+    <div className='h-[95vh] w-[600px] mt-5'>
+        <MainContainer className='md:col-span-4 rounded-xl pt-5'>
+            <ChatContainer>
+              <MessageList scrollBehavior="smooth" typingIndicator={isTyping ? <TypingIndicator content="Chatbot is typing" /> : null}>
+                {messages.map((message, i) => {
+                  return <Message style={message.sender == "user" ? userMessageStyle : chatGPTMessageStyle}  key={i} model={message} sender={message.sender} />;
+                })}
+              </MessageList>
+              <MessageInput placeholder="Type message here" onSend={handleSend} />
+            </ChatContainer>
+          </MainContainer>
       <div className='md:col-span-1'></div>
     </div>
-  </div>
   )
 }
 

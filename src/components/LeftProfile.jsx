@@ -1,14 +1,9 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import {useEffect } from 'react';
 import { FiLogOut } from "react-icons/fi";
-import { MdOutlineSettings } from "react-icons/md";
 import { useRef } from 'react';
-import { IoIosWallet } from "react-icons/io";
-import { FaPenAlt } from "react-icons/fa";
-import { MdAttachMoney } from "react-icons/md";
 
 
 
@@ -62,7 +57,7 @@ function LeftProfile() {
   };
 
   return (
-    <div className='flex flex-col justify-between items-center h-screen bg-black text-white py-8 w-[22%]'>
+    <div className='flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]'>
       
       <div className='mt-6 flex flex-col gap-4 items-center'>
         <div className='flex flex-col items-center gap-1'>
@@ -85,27 +80,16 @@ function LeftProfile() {
 
         <div className='flex flex-col gap-2 w-full pb-10'>
 
-        <button onClick={getBalance} className="mb-10 py-1.5 px-6 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">
+        <button onClick={getBalance} className="justify-center mb-10 py-1.5 px-6 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">
           {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
         </button>
-        
-        <button onClick={()=>navigate('/platform')} className='flex w-full items-center justify-center gap-2 py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
-            Platform
-        </button>
 
-        <button onClick={()=>navigate('/wallets')} className='flex w-full items-center justify-center gap-2 py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
-            Wallets
-            <IoIosWallet/>
-        </button>
-
-        <button onClick={()=>navigate('/pay')} className='flex w-full items-center justify-center gap-2 py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
-            Payments
-            <MdAttachMoney />
-        </button>
-
+        <NavBarButton name="Platform" onClick={() => navigate('/platform')}/>
+        <NavBarButton name="Wallets" onClick={() => navigate('/wallets')}/>
+        <NavBarButton name="Payments" onClick={() => navigate('/pay')}/>
+        <NavBarButton name="Transactions" onClick={() => navigate('/platform')}/>
 
         </div>
-
 
       </div>
       
@@ -120,6 +104,12 @@ function LeftProfile() {
 }
 
 export default LeftProfile
+
+const NavBarButton = (props) => {
+      return   (<button onClick={()=>props.onClick()} className='justify-center flex w-full items-center py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
+            {props.name}
+        </button>)
+}
 
 
 {/* {!openSettings &&(

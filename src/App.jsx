@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom"
+import { BrowserRouter,Routes,Route, useLocation } from "react-router-dom"
 import WalletsPage from "./components/WalletsPage"
 import Login from "./components/Login"
 import Signup from "./components/Signup"
@@ -24,11 +24,20 @@ initializeApp({
 })
 
 function App() {
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
-    <BrowserRouter>
       <div className="flex">
-       <LeftProfile/>
+        
+      {location.pathname == '/login' 
+        ? <div className="hidden"><LeftProfile/></div> 
+        : location.pathname == '/signup' 
+          ? <div className="hidden"><LeftProfile/></div> 
+          : <LeftProfile/>
+      } 
+
+      {/* button */}
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/pay" element={<PayPage/>} />
@@ -39,8 +48,6 @@ function App() {
         <Route path="/chatbot" element={<Chatbot/>} />
       </Routes>
     </div>
-
-    </BrowserRouter>
   )
 }
 
