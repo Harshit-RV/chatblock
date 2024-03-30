@@ -4,10 +4,11 @@ import axios from 'axios';
 
 
 
-function Profile() {
+function WalletsPage() {
   const navigate = useNavigate();
   // const [ balance, setBalance ] = useState(null);
-  const [ walletsList, setWalletsList] = useState(null)
+  const [ walletsList, setWalletsList] = useState(null);
+  const [ creatingNewWallet, setCreatingNewWallet ] = useState(false);
 
   // const walletsList = [
   //   { key1: 'value1', key2: 'value2' },
@@ -97,32 +98,11 @@ function Profile() {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-screen gap-8 bg-gray-50'>
-      <img className='h-48 w-48 mt-28' src="https://www.svgrepo.com/show/384674/account-avatar-profile-user-11.svg" alt="" />
-      <div className='text-2xl font-bold'>
-        Logged In User
-      </div>
-
-      {/* <div className='flex justify-center gap-4 items-baseline'>
-        <button onClick={getBalance} className="py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Check Balance
-        </button>
-        <div className='font-semibold'>{balance} Satoshi</div>
-      </div> */}
-
-      {/* <div className='flex justify-center gap-4 items-baseline'>
-        <div className='font-semibold text-lg'>Balance: </div>
-          <button onClick={getBalance} className="py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
-          </button>
-      </div> */}
+    <div className='flex flex-col items-center w-screen gap-8 bg-gray-50 pt-14'>
 
       <div className='flex flex-col gap-0'>
-        <div className='flex justify-between'>
+        <div className='flex justify-start'>
           <div className='font-semibold pl-2'>Wallets</div>
-          <button onClick={logOut} className="py-1 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            Create
-          </button>
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 py-5 gap-10'>
           {walletsList === null
@@ -130,33 +110,54 @@ function Profile() {
             : walletsList.map(obj => (
                 <WalletCard key={obj.id} id={obj.id} name={obj.name} paymail={obj.paymail} balance={obj.balance} getBalance={getBalance}/>
               ))}
+          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
+          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
+          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
+          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
+          <WalletCard key={1} id='abc' name='abc' paymail='{obj.paymail}' balance={10} getBalance={getBalance}/>
         </div>
       </div>
 
       <button onClick={logOut} className="mb-28 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        Logout
+        Create Wallet
       </button>
+
+      <div>
+        
+      </div>
+
     </div>
   )
 }
 
 const WalletCard = (props) => {
+  const [ showBalance, setShowBalance ] = useState(false);
+
+  const invertShowBalance = () => {
+    if (showBalance === false) {
+      setShowBalance(true)
+    } else {
+      setShowBalance(false)
+    }
+  }
+
   return (
     <div className='bg-white rounded-lg drop-shadow p-5 max-w-[350px] text-sm'>
-      <div className='font-bold text-xl'>{props.name}</div>
+      <div className='font-bold text-xl flex justify-start gap-2 items-baseline'>{props.name}</div>
       <div className='h-3'></div>
 
-      <button onClick={() => props.getBalance(props.id)} className="py-1 px-6 text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+      <button onClick={() => props.getBalance(props.id)} className="drop-shadow-sm flex justify-start gap-2 items-baseline py-1 px-6 text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
         {props.balance === null ? 'Check Balance' : <div className='text-green-700 font-semibold'>{props.balance} Satoshi</div> } 
       </button>
 
-      <div className='h-4'></div>
-
-      <div className='flex flex-col justify-start'>
-        <div className='font-semibold text-sm'>Wallet ID:</div>
-        <div>{props.id}</div>
-      </div>
       <div className='h-2'></div>
+
+      <div className='flex justify-start gap-2 items-baseline'>
+        <button onClick={invertShowBalance} className="drop-shadow-sm px-6 text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        {showBalance === false ? 'Show Wallet ID' : <div>{props.id}</div> } 
+      </button>
+      </div>
+      <div className='h-3'></div>
       <div className='flex justify-start gap-1'>
         <div className='font-semibold'>Paymail:</div>
         <div>{props.paymail}</div>
@@ -166,4 +167,4 @@ const WalletCard = (props) => {
 }
 
 
-export default Profile
+export default WalletsPage
