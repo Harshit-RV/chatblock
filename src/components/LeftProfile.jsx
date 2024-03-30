@@ -1,12 +1,11 @@
+import React from 'react'
 import { useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import {useEffect } from 'react';
 
-
-
-function Profile() {
-  const navigate = useNavigate();
+function LeftProfile() {
+    const navigate = useNavigate();
   const [ balance, setBalance ] = useState(null);
 
   const logOut = async () => {
@@ -54,5 +53,4 @@ function Profile() {
   )
 }
 
-
-export default Profile
+export default LeftProfile
