@@ -14,12 +14,30 @@ function WalletsPage() {
   const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
   const [ walletCreated, setWalletCreated ] = useState(false);
 
+  const [ creatingNewWallet, setCreatingNewWallet ] = useState(true);
+  const [ walletName, setWalletName ] = useState();
+  const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
+  const [ walletCreated, setWalletCreated ] = useState(false);
+
 
   // const walletsList = [
   //   { key1: 'value1', key2: 'value2' },
   //   { key1: 'value3', key2: 'value4' },
   //   { key1: 'value5', key2: 'value6' }
   // ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSomethingWentWrongMsg(false);
+    }, 5000);
+  }, [somethingWentWrongMsg]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setWalletCreated(false);
+      setCreatingNewWallet(false);
+      }, 10000);
+  }, [walletCreated]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -139,6 +157,34 @@ function WalletsPage() {
     }
   }
 
+  const createWallet = async (name) => {
+    setSomethingWentWrongMsg(false)
+
+    const jwtKey = localStorage.getItem('jwt');
+    try {
+      const response = await axios.post(`https://dev.neucron.io/v1/wallet/create?walletName=${name}`, null, {
+        headers: {
+          'accept': 'application/json',
+          'Authorization': jwtKey,
+        }
+      })
+
+      setWalletCreated(true)
+
+      console.log(response)
+    } catch (error) {
+        setSomethingWentWrongMsg(true)
+    }
+  }
+
+  const invertCreatingWallet = () => {
+    if (creatingNewWallet === true) {
+      setCreatingNewWallet(false);
+    } else {
+      setCreatingNewWallet(true);
+    }
+  }
+
   return (
     <div className='flex flex-col items-center w-screen gap-8 bg-gray-50 pt-14'>
 
@@ -160,7 +206,10 @@ function WalletsPage() {
         Create Wallet
       </button>:
       <div>
+      </button>:
       <div>
+      <div>
+        <input onChange={(e) => setWalletName(e.target.value)} placeholder="Wallet Name" required type="text" id="wallet_name" className="mb-5 w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
         <input onChange={(e) => setWalletName(e.target.value)} placeholder="Wallet Name" required type="text" id="wallet_name" className="mb-5 w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
       </div>
       {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
