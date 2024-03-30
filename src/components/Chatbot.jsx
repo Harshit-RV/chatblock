@@ -3,11 +3,15 @@ import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import nlp from 'compromise';
+
 
 
 const API_KEY= "AIzaSyCZK0cVfQTrS5YFQfS3rayg5v93djtqGRE"
 
 const genAI = new GoogleGenerativeAI(API_KEY);
+
+
 
 
 // "Explain things like you would to a 10 year old learning how to code."
@@ -29,6 +33,80 @@ function Chatbot() {
 
   const handleSend = async (message) => {
 
+    const doc = nlp(message);
+    console.log(doc);
+
+   
+
+    if(doc.match('send money').found){
+       const text = "Give me the wallet ID";
+
+       
+
+
+
+       console.log(text);
+       const userMessage = {
+        message: message, 
+        sender: "user"
+      };
+
+
+      
+      
+      setMessages([...messages, userMessage]);
+      
+      
+      setIsTyping(true);
+      
+      
+      //running backend api
+      setTimeout(() => {
+        const chatGPTReply = {
+          message: text,
+          sender: "ChatGPT"
+        };
+      
+        setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+      
+        setIsTyping(false);
+      }, 1000);
+
+     }
+    
+
+    else if(doc.match('(thank you sir|thanks sir)').found){
+
+      const text = "You're welcome";
+console.log(text);
+
+const userMessage = {
+  message: message, 
+  sender: "user"
+};
+
+
+setMessages([...messages, userMessage]);
+
+
+setIsTyping(true);
+
+
+//running backend api
+setTimeout(() => {
+  const chatGPTReply = {
+    message: text,
+    sender: "ChatGPT"
+  };
+
+  setMessages(prevMessages => [...prevMessages, chatGPTReply]);
+
+  setIsTyping(false);
+}, 1000); }
+
+
+
+    else {
     const newMessage = {
       message,
       direction: 'outgoing',
@@ -42,7 +120,7 @@ function Chatbot() {
     // Initial system message to determine ChatGPT functionality
     // How it responds, how it talks, etc.
     setIsTyping(true);
-    await processMessageToChatGPT(newMessages);
+    await processMessageToChatGPT(newMessages);}
   };
 
   async function processMessageToChatGPT(chatMessages) {
@@ -75,7 +153,17 @@ function Chatbot() {
         direction: 'incoming'
       }]);
       setIsTyping(false);
+
+
+
+    
   }
+
+
+
+  
+
+  
 
   const chatGPTMessageStyle = {
     // backgroundColor: '#e0e0e0',
@@ -91,6 +179,7 @@ function Chatbot() {
     marginBottom: '4px',
   };
 
+ 
  
 
   return (
