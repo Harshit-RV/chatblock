@@ -1,14 +1,9 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import {useEffect } from 'react';
 import { FiLogOut } from "react-icons/fi";
-import { MdOutlineSettings } from "react-icons/md";
 import { useRef } from 'react';
-import { IoIosWallet } from "react-icons/io";
-import { FaPenAlt } from "react-icons/fa";
-
 
 
 
@@ -62,33 +57,62 @@ function LeftProfile() {
   };
 
   return (
-    <div className='flex flex-col justify-between items-center h-screen gap-8'>
+    <div className='flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]'>
+      
       <div className='mt-6 flex flex-col gap-4 items-center'>
         <div className='flex flex-col items-center gap-1'>
-        <img className='h-32 w-32 rounded-full' src={selectedImage} alt="" />
-        <button className='hover:underline text-sm font-semibold' onClick={handleButtonClick} > change</button>
-        {/* <FaPenAlt onClick={handleButtonClick} className='hover:cursor-pointer '/> */}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={handleImageChange}
-        />
+          <img className='h-32 w-32 rounded-full' src={selectedImage} alt="" />
+          
+          <button className='hover:underline text-sm font-semibold' onClick={handleButtonClick} > change</button>
+          {/* <FaPenAlt onClick={handleButtonClick} className='hover:cursor-pointer '/> */}
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleImageChange}
+            />
         </div>
+
         <div className='text-2xl font-bold'>
-          User Logged In
+          Logged In User
         </div>
-        <div className='flex justify-center gap-4 items-baseline'>
-          <button onClick={getBalance} className="py-2.5 px-6 w-[146px] text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
-          </button>
-        </div>
-        <button onClick={()=>navigate('/Profile')} className='flex w-[146px] items-center justify-center gap-2 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
-            wallets
-            <IoIosWallet/>
+
+        <div className='flex flex-col gap-2 w-full pb-10'>
+
+        <button onClick={getBalance} className="justify-center mb-10 py-1.5 px-6 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">
+          {balance === null ? 'Check Balance' : `${balance} Satoshi`} 
         </button>
-        {/* {!openSettings &&(
+
+        <NavBarButton name="Platform" onClick={() => navigate('/platform')}/>
+        <NavBarButton name="Wallets" onClick={() => navigate('/wallets')}/>
+        <NavBarButton name="Payments" onClick={() => navigate('/pay')}/>
+        <NavBarButton name="Transactions" onClick={() => navigate('/platform')}/>
+
+        </div>
+
+      </div>
+      
+      <div className='flex flex-col gap-2 w-full px-8'>
+        <button onClick={logOut} className="w-full flex items-center gap-2 justify-center py-1.5 px-6 text-sm font-semibold text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">
+          Logout
+          <FiLogOut/>
+        </button>
+      </div> 
+    </div>
+  )
+}
+
+export default LeftProfile
+
+const NavBarButton = (props) => {
+      return   (<button onClick={()=>props.onClick()} className='justify-center flex w-full items-center py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
+            {props.name}
+        </button>)
+}
+
+
+{/* {!openSettings &&(
             <button onClick={()=>setOpenSettings(true)} className='flex items-center justify-center gap-2 py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
             wallets
             <IoIosWallet/>
@@ -106,15 +130,3 @@ function LeftProfile() {
         </button>
             </div>
         )} */}
-      </div>
-      <div className='flex flex-col gap-2 mb-4'>
-        <button onClick={logOut} className="flex items-center w-[146px] gap-2 justify-center py-2.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-        Logout
-        <FiLogOut/>
-      </button>
-      </div> 
-    </div>
-  )
-}
-
-export default LeftProfile

@@ -1,8 +1,8 @@
 import LeftProfile from "./LeftProfile"
 import Transanctions from "./Transanctions"
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 import Chatbot from "./Chatbot"
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 
 const Platform = () => {
     const navigate = useNavigate();

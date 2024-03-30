@@ -1,5 +1,5 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom"
-import Profile from "./components/Profile"
+import { BrowserRouter,Routes,Route, useLocation } from "react-router-dom"
+import WalletsPage from "./components/WalletsPage"
 import Login from "./components/Login"
 import Signup from "./components/Signup"
 // import firebase from 'firebase/app';
@@ -7,7 +7,10 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 import Platform from "./components/Platform";
-import Chatbot from "./components/Chatbot"
+import Chatbot from "./components/Chatbot";
+import PayPage from "./components/Pay";
+import LeftProfile from "./components/LeftProfile"
+
 
 
 initializeApp({
@@ -21,18 +24,30 @@ initializeApp({
 })
 
 function App() {
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
-    <BrowserRouter>
+      <div className="flex">
+        
+      {location.pathname == '/login' 
+        ? <div className="hidden"><LeftProfile/></div> 
+        : location.pathname == '/signup' 
+          ? <div className="hidden"><LeftProfile/></div> 
+          : <LeftProfile/>
+      } 
+
+      {/* button */}
       <Routes>
         <Route path="/" element={<Login/>} />
+        <Route path="/pay" element={<PayPage/>} />
         <Route path="/platform" element={<Platform/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
-        <Route path = "/chatbot" element = {<Chatbot/>}/>
+        <Route path="/chatbot" element={<Chatbot/>} />
       </Routes>
-    </BrowserRouter>
+    </div>
   )
 }
 
