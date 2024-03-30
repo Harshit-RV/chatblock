@@ -34,7 +34,7 @@ function Login() {
       setTimeout(() => {
         setLoginSuccessMsg(false);
       }, 7000);
-      navigate('/profile')
+      navigate('/platform')
     }
   }, [loginSuccessMsg]);
 
