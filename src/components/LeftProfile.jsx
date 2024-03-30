@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { FiLogOut } from "react-icons/fi";
@@ -11,12 +11,19 @@ import { useRef } from 'react';
 function LeftProfile() {
     const navigate = useNavigate();
   const [ balance, setBalance ] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      setSelectedImage(storedImage);
+    }
+  }, []);
 
   const logOut = async () => {
     await localStorage.removeItem("jwt");
     navigate("/login");
   }
-  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleImageChange = (e) => {
@@ -26,6 +33,7 @@ function LeftProfile() {
       reader.onloadend = () => {
         setSelectedImage(reader.result);
       };
+      localStorage.setItem('profileImage', reader.result);
       reader.readAsDataURL(file);
     }
   };
