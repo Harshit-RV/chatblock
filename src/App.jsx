@@ -11,6 +11,7 @@ import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
 import Transanctions from "./components/Transanctions";
+import ContactsPage from "./components/Contacts";
 
 
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/signup" element={<Signup/>} />
         <Route path="/chatbot" element={<Chatbot/>} />
         <Route path="/transactions" element={<Transanctions/>} />
+        <Route path="/contacts" element={<ContactsPage/>} />
       </Routes>
     </div>
   )

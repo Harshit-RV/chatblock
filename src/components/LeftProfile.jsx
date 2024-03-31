@@ -38,9 +38,9 @@ function LeftProfile() {
 
     try {
       const data = await getDocs(collection(db, 'users'));
-      console.log(data.docs)
+      // console.log(data.docs)
       data.docs.map((doc) => {
-        console.log(doc.data().email)
+        // console.log(doc.data().email)
         if (doc.data().email == email) {
           setUsername(doc.data().name)
         }
@@ -122,6 +122,7 @@ function LeftProfile() {
         <NavBarButton name="Wallets" onClick={() => navigate('/wallets')}/>
         <NavBarButton name="Payments" onClick={() => navigate('/pay')}/>
         <NavBarButton name="Transactions" onClick={() => navigate('/transactions')}/>
+        <NavBarButton name="Contacts" onClick={() => navigate('/contacts')}/>
 
         </div>
 

@@ -145,7 +145,7 @@ function WalletsPage() {
 
       <div className='flex flex-col gap-0'>
         <div className='flex justify-start'>
-          <div className='font-semibold pl-2'>Wallets</div>
+          <div className='font-semibold pl-2'>WALLETS</div>
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 py-5 gap-10'>
           {walletsList === null

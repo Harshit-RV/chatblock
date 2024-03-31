@@ -103,9 +103,9 @@ function Signup() {
                 <span>Chatblock Account</span>
             </div>
 
-          <input onChange={(e) => setName(e.target.value)} placeholder="Luke Skywalker" required type="text" id="name" className=" my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5"/>
-          <input onChange={(e) => setEmail(e.target.value)} placeholder="luke@skywalkers.com" required type="email" id="email" className=" my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5"/>
-          <input onChange={(e) => setPassword(e.target.value)} placeholder="yoda-is-op" required type="text" id="password" className=" my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5"/>
+          <input onChange={(e) => setName(e.target.value)} placeholder="Luke Skywalker" required type="text" id="name" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
+          <input onChange={(e) => setEmail(e.target.value)} placeholder="luke@skywalkers.com" required type="email" id="email" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
+          <input onChange={(e) => setPassword(e.target.value)} placeholder="yoda-is-op" required type="text" id="password" className="w-80 my-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>
           
           {invalidCredentialMsg === true ? <div className="text-red-500 mt-2">Please enter valid credentials.</div> : <p></p>}
           {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
