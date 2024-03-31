@@ -7,7 +7,7 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 import Platform from "./components/Platform";
-import Chatbot from "./components/Chatbot";
+// import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
 import Transanctions from "./components/Transanctions";
@@ -36,6 +36,7 @@ function App() {
   const navigate = useNavigate();
   const logOut = async () => {
     await localStorage.removeItem("jwt");
+    await localStorage.removeItem("email");
     navigate("/login");
   }
 
@@ -54,9 +55,10 @@ function App() {
             <AiOutlineClose color="black" className="hover:cursor-pointer" onClick={() => setToggleMenu(false)}/>
             <button onClick={()=>{navigate('/chatbot'),setToggleMenu(false)}} className="justify-center mb-5 mt-2 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Chatbot</button>
             <button onClick={()=>{navigate('/wallets'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Wallets</button>
+            <button onClick={()=>{navigate('/contacts'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Contacts</button>
             <button onClick={()=>{navigate('/pay'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Payments</button>
             <button onClick={()=>{navigate('/transactions'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Transactions</button>
-            <button onClick={()=>{logOut,setToggleMenu(false)}} className="justify-center py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Logout</button>
+            <button onClick={()=>{logOut(),setToggleMenu(false)}} className="justify-center py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Logout</button>
           </div>
         )}
       {location.pathname == '/login' 
