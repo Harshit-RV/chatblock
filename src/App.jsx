@@ -7,7 +7,7 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import 'firebase/auth';
 import Platform from "./components/Platform";
-import Chatbot from "./components/Chatbot";
+// import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
 import Transanctions from "./components/Transanctions";
@@ -36,6 +36,7 @@ function App() {
   const navigate = useNavigate();
   const logOut = async () => {
     await localStorage.removeItem("jwt");
+    await localStorage.removeItem("email");
     navigate("/login");
   }
 

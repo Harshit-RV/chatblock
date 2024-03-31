@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, updateDoc, doc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { addDoc } from "firebase/firestore";
 
 const app = initializeApp({
     apiKey: "AIzaSyAqS6zfLYZWvA79bbcDjm38Ba7pFEOgeCI",
@@ -26,6 +27,8 @@ const ContactsPage = () => {
     const [ changeName, setChangeName ] = useState(false)
 
     const deleteContact = async (name) => {
+        const email = localStorage.getItem('email');
+
         try {
             const data = await getDocs(collection(db, 'contacts'));
     
@@ -33,14 +36,16 @@ const ContactsPage = () => {
             let tempList = [];
     
             data.docs.map((doc) => {
-                docRefId = doc.id;
-                doc.data().contacts.map((contact) => {
-                    if (contact.name === name) {
-                        // Do not add this contact to the temporary list to delete it
-                        return;
-                    }
-                    tempList.push(contact);
-                });
+                if (doc.data().email == email) {
+                    docRefId = doc.id;
+                    doc.data().contacts.map((contact) => {
+                        if (contact.name === name) {
+                            // Do not add this contact to the temporary list to delete it
+                            return;
+                        }
+                        tempList.push(contact);
+                    });
+                }
             });
     
             await updateDoc(doc(collection(db, 'contacts'), docRefId), {
@@ -62,22 +67,38 @@ const ContactsPage = () => {
 
             var docRefId;
             let tempList = [];
-            let contactFound = false;
+            let toReturn = false;
+            let previousRecord = false;
 
             data.docs.map((doc) => {
-                docRefId = doc.id;
-                doc.data().contacts.map((contact) => {
-                    if (contact.name == name){
-                        setChangeName(true)
-                        contactFound = true;
-                        return;
-                    }
-                    tempList.push(contact)
-                    // console.log(contact)
-                })
+                
+                if (doc.data().email == email){
+                    docRefId = doc.id;
+                    previousRecord = true;
+                
+                    doc.data().contacts.map((contact) => {
+                        if (contact.name == name){
+                            setChangeName(true)
+                            toReturn = true;
+                            return;
+                        }
+                        tempList.push(contact)
+                        // console.log(contact)
+                })}
             })
 
-            if (contactFound) {
+            if (previousRecord === false){
+                await addDoc(collection(db, 'contacts'), {
+                    email: email,
+                    contacts: [{
+                        name: name,
+                        paymail: paymail
+                    }]
+                })
+                return;
+            }
+
+            if (toReturn) {
                 return;
             }
 
@@ -95,9 +116,8 @@ const ContactsPage = () => {
             setAccountAdded(true)
 
 
-            // const existingCodes = data.docs.map(doc => [doc.id, doc.data().gameCode]);
         } catch (error) {
-            console.log('error')
+            console.log(error)
         }
     }
 
@@ -105,10 +125,6 @@ const ContactsPage = () => {
         getContacts()
       }, []);
 
-    //   useEffect(() => {
-    //     // This code will run every time contactsList changes
-    //     // console.log("contactsList updated:", contactsList);
-    // }, [contactsList]);
 
     const getContacts = async () => {
         const email = localStorage.getItem('email');
@@ -116,7 +132,6 @@ const ContactsPage = () => {
         try {
             const data = await getDocs(collection(db, 'contacts'));
 
-            // console.log(data.docs)
             let tempList = [];
 
             data.docs.map((doc) => {
@@ -128,9 +143,7 @@ const ContactsPage = () => {
                 }
             })
 
-            // console.log(tempList)
             setContactsList(tempList)
-            // const existingCodes = data.docs.map(doc => [doc.id, doc.data().gameCode]);
         } catch (error) {
             console.log('error')
         }
@@ -153,7 +166,7 @@ const ContactsPage = () => {
         setTimeout(() => {
             getContacts()
           setAccountAdded(false);
-          }, 10000);
+          }, 3000);
       }, [accountAdded]);
 
     const invertAddingContact = () => {

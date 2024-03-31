@@ -38,6 +38,7 @@ function LeftProfile() {
 
   const logOut = async () => {
     await localStorage.removeItem("jwt");
+    await localStorage.removeItem("email");
     navigate("/login");
   }
   const fileInputRef = useRef(null);
