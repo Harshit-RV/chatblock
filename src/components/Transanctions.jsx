@@ -1,14 +1,22 @@
 
 import  { useState, useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Transactions() {
+  const navigate = useNavigate();
 
   const [isToggled, setIsToggled] = useState(false);
 
   const toggleButton = () => {
     setIsToggled(!isToggled);
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('jwt')) {
+      navigate('/login');
+    }
+  }, []);
 
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {

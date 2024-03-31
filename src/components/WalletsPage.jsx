@@ -147,7 +147,7 @@ function WalletsPage() {
         <div className='flex justify-start'>
           <div className='font-semibold pl-2'>WALLETS</div>
         </div>
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 py-5 gap-10'>
+        <div className='grid lg:grid-cols-2 xl:grid-cols-3 py-5 gap-10'>
           {walletsList === null
             ? <div>loading ....</div>
             : walletsList.map(obj => (
