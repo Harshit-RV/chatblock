@@ -121,9 +121,11 @@ const PayPage = () => {
         let tempList = [];
 
         data.docs.map((doc) => {
+          if (doc.data().email == email) {
             doc.data().contacts.map((contact) => {
                 tempList.push(contact)
             })
+        }
         })
 
         // console.log(tempList)
@@ -144,7 +146,7 @@ const PayPage = () => {
           <div className="text-3xl font-bold mb-5">Pay</div>
 
           {payingByContact ? <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
+        <div className="relative mt-1 mb-5">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
             placeholder='Select Contact'

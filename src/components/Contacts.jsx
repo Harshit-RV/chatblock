@@ -89,9 +89,12 @@ const ContactsPage = () => {
             let tempList = [];
 
             data.docs.map((doc) => {
-                doc.data().contacts.map((contact) => {
-                    tempList.push(contact)
-                })
+                // console.log(doc.data().email)
+                if (doc.data().email == email) {
+                    doc.data().contacts.map((contact) => {
+                        tempList.push(contact)
+                    })
+                }
             })
 
             // console.log(tempList)
@@ -135,6 +138,8 @@ const ContactsPage = () => {
         <div className="h-screen bg-gray-50 p-20 w-screen">
 
             <div className='font-semibold pl-4 flex justify-start mb-5'>CONTACTS</div>
+
+            {contactsList.length === 0 ? <div className="flex justify-start pl-4">No Contacts Added</div>: <div></div>}
 
             {contactsList.map((item, index) => (
                 <div key={index} className="flex flex-col mb-2 md:flex-row items-baseline p-4 px-10 justify-between bg-white drop-shadow-sm mx-4 rounded-md max-w-[600px]">
