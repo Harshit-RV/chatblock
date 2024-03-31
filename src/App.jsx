@@ -15,6 +15,8 @@ import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";import ContactsPage from "./components/Contacts";
+
 
 
 initializeApp({
@@ -73,6 +75,7 @@ function App() {
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/transactions" element={<Transanctions/>} />
+        <Route path="/contacts" element={<ContactsPage/>} />
       </Routes>
     </div>
   )
