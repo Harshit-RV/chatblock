@@ -15,7 +15,7 @@ import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";import ContactsPage from "./components/Contacts";
+import ContactsPage from "./components/Contacts";
 
 
 

@@ -33,7 +33,7 @@ function Chatbot() {
 
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
+      message: "Hello there! I'm your ChatBlock assistant, here to assist you with solving queries and carrying out tasks. Feel free to ask me anything or give me commands like 'send money', 'check my balance', 'check wallet balance', or 'transactions'. How can I assist you today?",
       sentTime: "just now",
       sender: "ChatGPT"
     }
