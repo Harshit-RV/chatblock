@@ -179,14 +179,14 @@ const ContactsPage = () => {
 
       return (
         <>
-            <div className="h-screen bg-gray-50 p-20 w-screen">
+            <div className="h-screen bg-gray-50 md:p-20 w-full">
     
-                <div className='font-semibold pl-4 flex justify-start mb-5'>CONTACTS</div>
+                <div className='font-semibold flex justify-start mb-5'>CONTACTS</div>
 
-                {contactsList.length === 0 ? <div className="flex justify-start pl-4">No Contacts Added</div>: <div></div>}
+                {contactsList.length === 0 ? <div className="flex justify-start">No Contacts Added</div>: <div></div>}
     
                 {contactsList.map((item, index) => (
-                    <div key={index} className="flex flex-col mb-2 md:flex-row items-baseline p-4 px-10 justify-between bg-white drop-shadow-sm mx-4 rounded-md max-w-[600px]">
+                    <div key={index} className="flex flex-col mb-2 md:flex-row items-baseline px-10 justify-between bg-white drop-shadow-sm mx-4 rounded-md max-w-[600px]">
                         <div className="text-lg font-bold">{item.name}</div>
                         <div>{item.paymail}</div>
                         <button onClick={() => deleteContact(item.name)} className="text-red-600 hover:text-red-900 font-semibold focus:outline-none">Delete</button>
@@ -198,9 +198,9 @@ const ContactsPage = () => {
                         Add Contact
                     </button>
                     :
-                    <div className="pl-4 mt-10">
-                        <input onChange={(e) => setName(e.target.value)} placeholder="Name" required type="text" id="name" className="mb-5 w-80 my-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
-                        <input onChange={(e) => setPaymail(e.target.value)} placeholder="Paymail" required type="text" id="name" className="mb-5 w-80 my-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
+                    <div className="mt-10 mx-4">
+                        <input onChange={(e) => setName(e.target.value)} placeholder="Name" required type="text" id="name" className="mb-5 w-60 my-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
+                        <input onChange={(e) => setPaymail(e.target.value)} placeholder="Paymail" required type="text" id="name" className="mb-5 w-60 my-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"/>  
     
                         {somethingWentWrongMsg === true ? <div className="text-red-500 mt-2">Something went wrong. Please try again</div> : <p></p>}
                         {changeName === true ? <div className="text-red-500 mt-2">A contact by this name already exists</div> : <p></p>}
