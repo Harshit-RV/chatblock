@@ -1,4 +1,4 @@
-# ChatBlock: Conversational Payments App with Neuron API Integration
+# ChatBlock: Conversational Payments App with Neucron API Integration
 
 ### Live Demo: 
 Netlify: https://dulcet-gaufre-d05e31.netlify.app/
