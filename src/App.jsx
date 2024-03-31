@@ -11,7 +11,9 @@ import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
 import Transanctions from "./components/Transanctions";
-import ContactsPage from "./components/Contacts";
+import { useState } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";import ContactsPage from "./components/Contacts";
 
 
 
@@ -32,7 +34,6 @@ function App() {
 
   return (
       <div className="flex">
-        
       {location.pathname == '/login' 
         ? <div className="hidden"><LeftProfile/></div> 
         : location.pathname == '/signup' 
@@ -48,12 +49,12 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
-        <Route path="/chatbot" element={<Chatbot/>} />
         <Route path="/transactions" element={<Transanctions/>} />
         <Route path="/contacts" element={<ContactsPage/>} />
       </Routes>
     </div>
   )
 }
+
 
 export default App

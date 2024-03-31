@@ -25,12 +25,21 @@ function LeftProfile() {
   const navigate = useNavigate();
   const [ balance, setBalance ] = useState(null);
   const [ username, setUsername ] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+//   const [toggleMenu, setToggleMenu] = useState(false);
+  
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      setSelectedImage(storedImage);
+    }
+  }, []);
 
   const logOut = async () => {
     await localStorage.removeItem("jwt");
     navigate("/login");
   }
-  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const getUsername = async () => {
@@ -61,6 +70,7 @@ function LeftProfile() {
       reader.onloadend = () => {
         setSelectedImage(reader.result);
       };
+      localStorage.setItem('profileImage', reader.result);
       reader.readAsDataURL(file);
     }
   };
@@ -92,10 +102,10 @@ function LeftProfile() {
   };
 
   return (
-    <div className='flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]'>
+    <div className='hidden md:flex flex-col justify-between items-center h-screen bg-[#1e6fa4] text-white py-8 w-[22%]     '>
       
       <div className='mt-6 flex flex-col gap-4 items-center'>
-        <div className='flex flex-col items-center gap-1'>
+        <div className=' items-center gap-1'>
           <img className='h-32 w-32 rounded-full' src={selectedImage} alt="" />
           
           <button className='hover:underline text-sm font-semibold' onClick={handleButtonClick} > change</button>
@@ -135,6 +145,7 @@ function LeftProfile() {
         </button>
       </div> 
     </div>
+  
   )
 }
 
