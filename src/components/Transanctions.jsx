@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Transactions() {
   const navigate = useNavigate();
 
-  const [isToggled, setIsToggled] = useState(false);
+  const [isToggled, setIsToggled] = useState(true);
 
   const toggleButton = () => {
     setIsToggled(!isToggled);
