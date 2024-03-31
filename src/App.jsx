@@ -15,7 +15,7 @@ import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";import ContactsPage from "./components/Contacts";
+import ContactsPage from "./components/Contacts";
 
 
 
@@ -56,7 +56,7 @@ function App() {
             <button onClick={()=>{navigate('/wallets'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Wallets</button>
             <button onClick={()=>{navigate('/pay'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Payments</button>
             <button onClick={()=>{navigate('/transactions'),setToggleMenu(false)}} className="justify-center mb-5 py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Transactions</button>
-            <button onClick={()=>{logOut,setToggleMenu(false)}} className="justify-center py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Logout</button>
+            <button onClick={()=>{logOut(),setToggleMenu(false)}} className="justify-center py-1.5 px-4 w-full text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Logout</button>
           </div>
         )}
       {location.pathname == '/login' 
