@@ -152,7 +152,7 @@ function LeftProfile() {
 export default LeftProfile
 
 const NavBarButton = (props) => {
-      return   (<button onClick={()=>props.onClick()} className='justify-center flex w-full items-center py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
+      return   (<button onClick={()=>props.onClick()} className='justify-center flex md:w-full w-14 items-center py-1.5 px-6  text-sm font-medium text-gray-900  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700'>
             {props.name}
         </button>)
 }
