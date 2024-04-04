@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const API_KEY= "AIzaSyCZK0cVfQTrS5YFQfS3rayg5v93djtqGRE"
+// const API_KEY= "AIzaSyCZK0cVfQTrS5YFQfS3rayg5v93djtqGRE"
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
