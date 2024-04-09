@@ -170,7 +170,7 @@ function Chatbot() {
     }, 1000);
   
     setTimeout(()=>{
-    navigate('/transanctions');
+    navigate('/transactions');
     },4000);
 
   } else {

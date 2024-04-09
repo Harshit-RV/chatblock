@@ -15,9 +15,6 @@ const Platform = () => {
     return (
     <div className="flex justify-center bg-gray-50 w-full">
             <Chatbot/>
-        {/* <div className="md:col-span-1 bg-gray-300">
-            <Transanctions/>
-        </div> */}
     </div>
     
     )

@@ -10,7 +10,7 @@ import Platform from "./components/Platform";
 // import Chatbot from "./components/Chatbot";
 import PayPage from "./components/Pay";
 import LeftProfile from "./components/LeftProfile"
-import Transanctions from "./components/Transanctions";
+import Transactions from "./components/Transactions";
 import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -76,7 +76,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/wallets" element={<WalletsPage/>} />
         <Route path="/signup" element={<Signup/>} />
-        <Route path="/transactions" element={<Transanctions/>} />
+        <Route path="/transactions" element={<Transactions/>} />
         <Route path="/contacts" element={<ContactsPage/>} />
       </Routes>
     </div>
