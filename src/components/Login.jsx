@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/react"
 
 
 function Login() {
@@ -71,6 +72,7 @@ function Login() {
   return (
     <>
       <div className='w-screen flex h-screen justify-center items-center'>
+        <Analytics/>
         <div className='flex justify-center flex-col items-center'>
 
           <div className="text-3xl font-bold mb-5">Log in to Chatblock</div>

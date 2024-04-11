@@ -5,6 +5,7 @@ import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { Analytics } from "@vercel/analytics/react"
 
 const app = initializeApp({
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -23,8 +24,6 @@ const PayPage = () => {
   const [ paymail, setPaymail ] = useState();
   const [ amount, setAmount ] = useState();
   const [ note, setNote ] = useState();
-
-  const [ contactPaymail, setContactPaymail ] = useState('')
 
   const [ somethingWentWrongMsg, setSomethingWentWrongMsg ] = useState(false);
   const [ invalidCredentialMsg, setInvalidCredentialMsg ] = useState(false);
@@ -140,6 +139,7 @@ const PayPage = () => {
     return (
     <>
       <div className='w-screen flex h-screen justify-center items-center'>
+        <Analytics/>
         
         <div className='flex justify-center flex-col items-center'>
 

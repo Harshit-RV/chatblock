@@ -1,6 +1,7 @@
 import  { useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/react"
 
 function Transactions() {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function Transactions() {
   
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center mt-3 ">
+    <Analytics/>
     <div className=" bg-gray-300 rounded-lg shadow-lg p-8 mb-8 overflow-y-auto">
     <h1 className="text-2xl font-bold mb-4 uppercase text-center">Past Transactions</h1>
     {transactions.map((transaction, index) => (
