@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import {useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { Analytics } from "@vercel/analytics/react"
 
 
 
@@ -142,7 +143,7 @@ function WalletsPage() {
 
   return (
     <div className='flex flex-col items-center w-screen gap-8 bg-gray-50 pt-14'>
-
+      <Analytics/>
       <div className='flex flex-col gap-0'>
         <div className='flex justify-start'>
           <div className='font-semibold pl-2'>WALLETS</div>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc } from 'firebase/firestore/lite';
+import { Analytics } from "@vercel/analytics/react"
 
 
 const app = initializeApp({
@@ -96,6 +97,7 @@ function Signup() {
   return (
     <>
       <div className='w-screen flex h-screen justify-center items-center'>
+      <Analytics/>
         <div className='flex justify-center flex-col items-center'>
 
             <div className="text-3xl font-bold mb-8 flex flex-col items-center gap-1">

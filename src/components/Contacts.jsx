@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { addDoc } from "firebase/firestore";
+import { Analytics } from "@vercel/analytics/react"
 
 const app = initializeApp({
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -180,6 +181,7 @@ const ContactsPage = () => {
       return (
         <>
             <div className="h-screen bg-gray-50 md:p-20 w-full">
+            <Analytics/>
     
                 <div className='font-semibold flex justify-start mb-5'>CONTACTS</div>
 
